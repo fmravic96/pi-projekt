@@ -38,50 +38,25 @@
       </div>
     </header>
 
-        <!-- Contact Section -->
-    <section id="contact">
-      <div class="container">
+    <table class="table">
+          <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price (HRK)</th>
+              <th>Quantity (in kg)</th>
+            </tr> 
+          </thead>
+          <tbody>
+        @foreach($products as $product)
+            <tr>
+              <th>{{$product['name']}}</th>
+              <th>{{$product['price']}}</th>
+              <th>{{$product['quantity']}}</th>
+            </tr>
+          @endforeach
+          </tbody>
+          </table>
         
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                      <label>Date</label>
-                      <input class="form-control" id="date" type="date" placeholder="Date" required="required" data-validation-required-message="Please enter date.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-             
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Product</label>
-                  <input class="form-control" id="product" type="text" placeholder="Product" required="required" data-validation-required-message="Please select product .">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Quantity</label>
-                  <input class="form-control" id="quantity" type="number" placeholder="Quantity" required="required" data-validation-required-message="Please enter quantity.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-
-
-              <div class="form-group">
-                <br>
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Send</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
     
     <!-- Footer -->
     <footer class="footer text-center d-flex">

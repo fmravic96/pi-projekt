@@ -13,6 +13,7 @@ class Customers extends Model
         'email',
         'phone',
         'gender',
+        'host',
     ];
 
     protected $table='customers';

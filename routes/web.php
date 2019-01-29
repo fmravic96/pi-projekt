@@ -1,6 +1,7 @@
 <?php
 
 use App\Customers;
+use App\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,17 @@ use App\Customers;
 */
 
 Route::get('/', function () {
-    return view('home');
+    if (Auth::check() && Auth::user()->role == 'distributer') {
+        return view('distributer');
+
+    }
+    elseif (Auth::check() && Auth::user()->role == 'presenter') {
+        return view('presenter');
+    }
+    else {
+        return view('home');
+    }
+    
 });
 
 Route::get('/home', function () {
@@ -42,8 +53,18 @@ Route::get('/customerList', function () {
     return view('customerList', compact('customers'));
 });
 
+Route::get('/productList', function () {
+
+    $products = Product::All()->toArray();
+    return view('productsList', compact('products'));
+});
+
 Route::get('/editFlyers', function () {
     return view('editFlyers');
+});
+Route::get('/presentations', function () {
+    $customers = Customers::All()->toArray();
+    return view('presentations', compact('customers'));
 });
 
 Route::get('/receipt', function () {
@@ -63,15 +84,11 @@ Route::get('/presenter', function () {
 });
 
 
-Route::get('/productList', function () {
-    return view('productList');
-});
+
 
 Route::get('/issueSlips', function () {
     return view('issueSlips');
 });
-
-
 
 Route::get('/distributer', function () {
     return view('distributer');

@@ -15,6 +15,9 @@
                 <a href="newOrder">New order</a>
             </li>
             <li>
+                <a href="presentations">Presentations</a>
+            </li>
+            <li>
                 <a href="editFlyers">Edit flyers/catalog</a>
             </li>
             <li>
