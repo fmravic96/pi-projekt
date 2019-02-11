@@ -51,7 +51,8 @@
             <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
             <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
 
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+            <form name="presentation" novalidate="novalidate" action="/presentations" method="post">
+            {{csrf_field()}}
               <div class="form-group row">
                 <label for="host" class="col-md-4 col-form-label text-md-right">Select a host</label>
                 <div class="col-md-6">
@@ -65,9 +66,9 @@
               <div class="form-group row">
                 <label for="guest" class="col-md-4 col-form-label text-md-right">Select guests</label>
                 <div class="col-md-6">
-                  <select name="guest" class="form-control selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
+                  <select name="guests[]" class="form-control selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
                     @foreach($customers as $customer)                   
-                      <option value="{{$customer['name']}}">{{$customer['name']}}</option>
+                      <option value="{{$customer['id']}}">{{$customer['name']}}</option>
                     @endforeach
                   </select> 
                 </div>
@@ -81,6 +82,47 @@
         </div>
       </div>
     </section>
+
+    <table class="table">
+          <thead>
+          <tr>
+              <th>Presentation ID</th>
+              <th>Host ID</th>
+              <th>Host name</th>
+              <th>Guests</th>
+            </tr> 
+          </thead>
+          <tbody>
+        @foreach($presentations as $presentation)
+        <?php
+              $flag=false;
+            ?>
+            <tr>
+              <td>{{$presentation['id']}}</td>
+              <td>{{$presentation['hostId']}}</td>
+              <td>{{$presentation['host']}}</td>
+              <td >
+            @foreach($guests as $guest) 
+        
+            @if($presentation['id'] == $guest['idPrez']) 
+            <?php
+              $flag=true;
+            ?>
+              {{$guest['name']}}
+              <br>
+            @endif
+          
+           @endforeach
+           <?php
+              if(!$flag)
+              echo 'No guest';
+            ?>
+           </td>
+           </tr>
+
+          @endforeach
+          </tbody>
+          </table>
 
     <!-- Footer -->
     <footer class="footer text-center d-flex">

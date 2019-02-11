@@ -66,7 +66,7 @@
 
                             <div class="col-md-6">
                                 <select name="role" class="form-control" >
-                                    <option value="distributer">Distributer</option>
+                                    <option value="distributer">Distributor</option>
                                     <option value="presenter">Presenter</option>
                                 </select> 
                             </div>

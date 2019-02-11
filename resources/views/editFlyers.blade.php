@@ -36,70 +36,61 @@
         <!--
         <h1 class="text-uppercase mb-0">Start Bootstrap</h1>
         <hr class="star-light">-->
-        <h2 class="font-weight-bold text-uppercase mb-0">Edit flyers and catalog</h2>
+        <h2 class="font-weight-bold text-uppercase mb-0">Edit flyer and catalog</h2>
       </div>
     </header>
 
         <!-- Contact Section -->
-    <section id="contact">
-      <div class="container">
-        
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Name</label>
-                  <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter customer name.">
-                  <p class="help-block text-danger"></p>
-                </div>
+    <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="form-group">
+            <label>Upload flyer</label>
+            <form action="{{route('upload.file')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+              {{csrf_field()}}
+              <div class="input-group">
+                <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" id="imgInp" name="file" >
+                </span> 
+                </span>
+                <input type="text" class="form-control" readonly>
               </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>OIB</label>
-                  <input class="form-control" id="oib" type="number" placeholder="Personal Identification Number" required="required" data-validation-required-message="Please enter customer PIN.">
-                  <p class="help-block text-danger"></p>
-                </div>
+                <img id='img-upload' style = "width : 100%" />
               </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Email Address</label>
-                  <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter customer email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Phone Number</label>
-                  <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter customer phone number.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div><br>
-              <div class="control-group">
-                  <p class="h4 text-muted">Gender</p><br>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="male" name="gender" checked>
-                  <label class="custom-control-label" for="male">Male</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="female" name="gender">
-                  <label class="custom-control-label" for="female">Female</label>
-                </div>
-              </div><br>
-              <br>
-              
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
-              </div>
-            </form>
+          <div class="form-group">
+                <br>
+                <button type="submit" class="btn btn-info" id="saveFlyerButton">Save</button>
           </div>
+          </form>
+          <br>
+          <div class="form-group">
+          <label>Upload Catalog</label>
+            <form action="{{route('upload.file2')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+              {{csrf_field()}}
+              <div class="input-group">
+                <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" id="imgInp" name="file2[]" multiple >
+                </span> 
+                </span>
+                <input type="text" class="form-control" readonly>
+              </div>
+                <img id='img-upload' style = "width : 100%" />
+              </div>
+          <div class="form-group">
+                <br>
+                <button type="submit" class="btn btn-info" id="saveCatalogButton">Save</button>
+          </div>
+          </form>
         </div>
+        </div>
+        
       </div>
+    </div>
+    
     </section>
-
     <!-- Footer -->
     <footer class="footer text-center d-flex">
       <div class="container justify-content-center w-30" >
@@ -145,6 +136,42 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        $(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+	    
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		}); 	
+	});
         </script>
     
 

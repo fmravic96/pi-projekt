@@ -61,7 +61,10 @@
     <!-- Header -->
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
-        <img class="img-fluid mb-5 d-block mx-auto" src="img/profile.png" alt="">
+        <!--<img class="img-fluid mb-5 d-block mx-auto" src="img/profile.png" alt="">-->
+
+        <?php $path='storage/upload/'.$flyer->name; ?>
+        <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">
         <h2 class="font-weight-bold text-uppercase mb-0">Flyer</h2>
       </div>
     </header>
@@ -79,6 +82,7 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
+              
               <img class="img-fluid" src="img/catalog/cabin.png" alt="">
             </a>
           </div>
@@ -129,7 +133,7 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/catalog/submarine.png" alt="">
+              <!--<img class="img-fluid" src="img/catalog/submarine.png" alt="">-->
             </a>
           </div>
         </div>

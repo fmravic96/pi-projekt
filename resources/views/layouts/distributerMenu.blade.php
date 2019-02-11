@@ -15,7 +15,7 @@
                   <a href="issueSlips">Issue slips</a>
               </li>
               <li>
-                <a href="logout">Signout</a>
+                <a href="logout">Logout</a>
             </li>
           </ul>
       </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Flyer;
+use App\Catalog;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $flyer = Flyer::latest()->first();
+        $catalog = Catalog::latest()->first()->toArray();
+
+        return view('home', compact('flyer','catalog'));
     }
 }

@@ -2,6 +2,10 @@
 
 use App\Customers;
 use App\Product;
+use App\Guest;
+use App\Flyer;
+use App\Catalog;
+use App\Presentation;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,21 +19,26 @@ use App\Product;
 */
 
 Route::get('/', function () {
+
+    $flyer = Flyer::latest()->first();
+    $catalog = Catalog::latest()->first()->toArray();
+  
     if (Auth::check() && Auth::user()->role == 'distributer') {
-        return view('distributer');
+        return view('distributer', compact('flyer','catalog'));
 
     }
     elseif (Auth::check() && Auth::user()->role == 'presenter') {
-        return view('presenter');
+        return view('presenter', compact('flyer','catalog'));
     }
     else {
-        return view('home');
+        return view('home', compact('flyer','catalog'));
     }
     
 });
 
 Route::get('/home', function () {
-    return view('home');
+    $flyer = Flyer::latest()->first();
+    return view('home', compact('flyer'));
 });
 
 Route::get('/login', function () {
@@ -44,7 +53,9 @@ Route::get('/newCustomer', function () {
 });
 
 Route::get('/newOrder', function () {
-    return view('newOrder');
+    $presentations = Presentation::latest()->get()->toArray();
+    $products = Product::All()->toArray();
+    return view('newOrder', compact('presentations', 'products'));
 });
 
 Route::get('/customerList', function () {
@@ -64,7 +75,9 @@ Route::get('/editFlyers', function () {
 });
 Route::get('/presentations', function () {
     $customers = Customers::All()->toArray();
-    return view('presentations', compact('customers'));
+    $presentations = Presentation::All()->toArray();
+    $guests = Guest::All()->toArray();
+    return view('presentations', compact('customers','presentations', 'guests'));
 });
 
 Route::get('/receipt', function () {
@@ -80,7 +93,9 @@ Route::get('/newProductOrder', function () {
 });
 
 Route::get('/presenter', function () {
-    return view('presenter');
+    $flyer = Flyer::latest()->first();
+
+    return view('presenter', compact('flyer'));
 });
 
 
@@ -91,7 +106,8 @@ Route::get('/issueSlips', function () {
 });
 
 Route::get('/distributer', function () {
-    return view('distributer');
+    $flyer = Flyer::latest()->first();
+    return view('distributer', compact('flyer'));
 });
 
 Auth::routes();
@@ -103,3 +119,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('newCustomer','CustomersController@store');
+
+Route::post('presentations','PresentationController@store');
+
+Route::get('file','FlyerController@showUploadForm')->name('upload.file');
+Route::post('file','FlyerController@storeFile');
+
+Route::get('file2','CatalogController@showUploadForm')->name('upload.file2');
+Route::post('file2','CatalogController@storeFile');
