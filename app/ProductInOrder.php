@@ -8,9 +8,10 @@ class ProductInOrder extends Model
 {
     protected $fillable = [
         'orderId',
-        'name',
+        'productName',
         'quantity',
+        'price',
     ];
 
-    protected $table='productinorder';
+    protected $table='product_in_orders';
 }

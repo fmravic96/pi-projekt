@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CustomerOrder;
+use App\ProductInOrder;
 use Illuminate\Http\Request;
 
 class CustomerOrderController extends Controller
@@ -14,7 +15,8 @@ class CustomerOrderController extends Controller
      */
     public function index()
     {
-        //
+        $customerOrder = CustomerOrder::all();
+        return view('customerOrder')->with($customerOrder);
     }
 
     /**
@@ -35,7 +37,30 @@ class CustomerOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = $request->get('hidden_product');
+        $quantity = $request->get('hidden_quantity');
+        $price = $request->get('hidden_price');
+
+        $customerOrder = new CustomerOrder([
+            'presentationId' => $request->get('presentationlist'),
+            'customerName' => $request->get('customerlist'),
+            'total' => $request->get('total2'),
+        ]);
+
+        
+        $customerOrder->save();
+        
+        for($i = 0;$i<count($product);$i++){
+            $productInOrder = new ProductInOrder([
+                'orderId' => $customerOrder['id'],
+                'productName' => $product[$i],
+                'quantity' => $quantity[$i],
+                'price' => $price[$i],
+            ]);
+            $productInOrder->save();
+        }
+
+        return $customerOrder;
     }
 
     /**

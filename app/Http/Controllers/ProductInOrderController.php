@@ -14,7 +14,8 @@ class ProductInOrderController extends Controller
      */
     public function index()
     {
-        //
+        $productInOrder = productInOrder::all();
+        return view('productInOrder')->with($productInOrder);
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductInOrderController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +36,7 @@ class ProductInOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

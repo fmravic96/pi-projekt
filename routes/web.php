@@ -53,9 +53,14 @@ Route::get('/newCustomer', function () {
 });
 
 Route::get('/newOrder', function () {
-    $presentations = Presentation::latest()->get()->toArray();
+    $presentations = Presentation::where('idPrez', Auth::user()->id)->latest()->get()->toArray();
+    $presentations2 = Presentation::where('idPrez', Auth::user()->id)->get()->toArray();
     $products = Product::All()->toArray();
-    return view('newOrder', compact('presentations', 'products'));
+    $customers = Customers::All()->toArray();
+    $guests = Guest::All()->toArray();
+    
+
+    return view('newOrder', compact('presentations', 'products', 'customers', 'guests','presentations2'));
 });
 
 Route::get('/customerList', function () {
@@ -119,6 +124,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('newCustomer','CustomersController@store');
+
+Route::post('newOrder', 'CustomerOrderController@store');
 
 Route::post('presentations','PresentationController@store');
 

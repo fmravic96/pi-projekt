@@ -15,9 +15,9 @@ class CreateCustomerOrdersTable extends Migration
     {
         Schema::create('customer_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('orderDate');
+            $table->integer('presentationId');
             $table->string('customerName');
-            $table->double('price');
+            $table->double('total');
             $table->timestamps();
         });
     }

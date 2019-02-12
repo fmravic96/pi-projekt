@@ -52,12 +52,13 @@
             <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
             <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
 
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+            <form name="newOrder" id="newOrder" novalidate="novalidate" action="/newOrder" method="post">
+            {{csrf_field()}}
             <div class="control-group">
               <div class="form-group row">
                 <label for="presentationlist" class="col-md-4 col-form-label text-md-right">Select a presentation</label>
                 <div class="col-md-6">
-                  <select name="presentationlist" class="form-control selectpicker" data-live-search="true" data-size="5"> 
+                  <select onchange="change()" name="presentationlist" id="presentationlist" class="form-control selectpicker" data-live-search="true" data-size="5"> 
                       @foreach($presentations as $presentation)
                         <option value="{{$presentation['id']}}">{{$presentation['id'] .'-'. $presentation['host']}}</option>
                       @endforeach
@@ -67,20 +68,12 @@
             </div>
             
             
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Date</label>
-                  <input class="form-control" id="date" type="date" placeholder="Date" required="required" data-validation-required-message="Please enter date.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
             
-            
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Customer</label>
-                  <input class="form-control" id="customer" type="text" placeholder="Customer" required="required" data-validation-required-message="Please enter customer name.">
-                  <p class="help-block text-danger"></p>
+              <div class="form-group row">
+                <label for="customerlist" class="col-md-4 col-form-label text-md-right">Select a customer</label>
+                <div class="col-md-6">
+                  <select name="customerlist" id="customerlist" class="form-control selectpicker" data-live-search="true" data-size="5"> 
+                  </select> 
                 </div>
               </div>
               
@@ -94,7 +87,6 @@
     <button type="button" name="add" id="add" class="btn btn-success btn-xs">Add</button>
    </div>
    <br />
-   <form method="post" id="user_form">
     <div class="table-responsive">
      <table class="table table-striped table-bordered" id="user_data">
       <tr>
@@ -105,10 +97,6 @@
       </tr>
      </table>
     </div>
-    <div align="center">
-     <input type="submit" name="insert" id="insert" class="btn btn-primary" value="Insert" />
-    </div>
-   </form>
 
    <br />
   </div>
@@ -127,18 +115,13 @@
     <input type="number" name="quantity" id="quantity" class="form-control" />
     <span id="error_quantity" class="text-danger"></span>
    </div>
-   <div class="form-group">
-    <label>Price</label>
-    <input type="number" name="price" id="price" class="form-control" />
-    <span id="error_price" class="text-danger"></span>
+   <div>
+
    </div>
    <div class="form-group" align="center">
     <input type="hidden" name="row_id" id="hidden_row_id" />
     <button type="button" name="save" id="save" class="btn btn-info">Add</button>
    </div>
-  </div>
-  <div id="action_alert" title="Action">
-
   </div>
               
               <div class="control-group">
@@ -146,7 +129,8 @@
                     <p class="h4 text-muted">Total</p>
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                       <label>Total</label>
-                      <output class="form-control" id="total" type="number" placeholder="Total" required="required">
+                      <input class="form-control" id="total2" name="total2" type="hidden" placeholder="Total" required="required">                      
+                      <output class="form-control" id="total" name="total" type="number" placeholder="Total" required="required">
                       <p class="help-block text-danger"></p>
                     </div>
                   </div>
@@ -156,11 +140,11 @@
                 <br>
                 <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
               </div>
-            </form>
           </div>
         </div>
       </div>
     </section>
+    </form>
 
     <!-- Footer -->
     <footer class="footer text-center d-flex">
@@ -208,6 +192,7 @@
     <!-- Custom scripts for this template -->
     <script src="{{URL::asset('js/freelancer.js')}}"></script>
 
+  
     <script>
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
@@ -217,12 +202,48 @@
  <script>  
 $(document).ready(function(){ 
  
+  var total = 0;
  var count = 0;
+$('#total').val(total);
+$('#total2').val(total);
 
  $('#user_dialog').dialog({
   autoOpen:false,
   width:400
  });
+
+ var customers = JSON.parse('{!! json_encode($customers) !!}');
+ console.log(customers); 
+
+ var guests = JSON.parse('{!! json_encode($guests) !!}');
+ console.log(guests); 
+
+var customerSelect = document.getElementById("customerlist");
+ var presList = $('#presentationlist').val();
+
+ var host = document.createElement("option");
+var presentations2 = {!! json_encode($presentations2) !!};
+console.log(presentations2); 
+
+host.text = presentations2[presList-1].host;
+
+host.value = presentations2[presList-1].host;
+customerSelect.add(host);
+
+ for(let i=0;i<guests.length;i++){
+  var option = document.createElement("option");
+     if(guests[i].idPrez==presList){
+       console.log(guests[i].guestId);
+       console.log(guests[i].idPrez);
+       console.log(presList);
+       option.text = guests[i].name;
+       option.value = guests[i].name;
+      customerSelect.add(option);
+     }
+   }
+
+ var products = JSON.parse('{!! json_encode($products) !!}');
+ console.log(products);
 
  $('#add').click(function(){
   $('#user_dialog').dialog('option', 'title', 'Add Data');
@@ -259,6 +280,7 @@ $(document).ready(function(){
    $('#error_product').text(error_product);
    $('#product').css('border-color', '');
    product = $('#product').val();
+   
   } 
   if($('#quantity').val() == '')
   {
@@ -274,21 +296,16 @@ $(document).ready(function(){
    $('#quantity').css('border-color', '');
    quantity = $('#quantity').val();
   }
+  for(let i=0;i<products.length;i++){
+     if(products[i].name==product){
+       price=quantity*products[i].price;
+     }
+   }
 
-  if($('#price').val() == '')
-  {
-   error_price = 'Price is required';
-   $('#error_price').text(error_price);
-   $('#price').css('border-color', '#cc0000');
-   price = '';
-  }
-  else
-  {
-   error_price = '';
-   $('#error_price').text(error_price);
-   $('#price').css('border-color', '');
-   price = $('#price').val();
-  }
+   total+=price;
+   total = Math.round(total*100)/100;
+   $('#total').val(total);
+   $('#total2').val(total);
 
   if(error_product != '' || error_quantity != '' || error_price != '')
   {
@@ -321,25 +338,20 @@ $(document).ready(function(){
   }
  });
 
- $(document).on('click', '.view_details', function(){
-  var row_id = $(this).attr("id");
-  var product = $('#product'+row_id+'').val();
-  var quantity = $('#quantity'+row_id+'').val();
-  var price = $('#price'+row_id+'').val();
-  $('#product').val(product);
-  $('#quantity').val(quantity);
-  $('#price').val(price);
-  $('#save').text('Edit');
-  $('#hidden_row_id').val(row_id);
-  $('#user_dialog').dialog('option', 'title', 'Edit Data');
-  $('#user_dialog').dialog('open');
- });
-
  $(document).on('click', '.remove_details', function(){
   var row_id = $(this).attr("id");
   if(confirm("Are you sure you want to remove this row data?"))
   {
+   var removedPrice = $('#price'+row_id).val();
+   console.log(removedPrice);
    $('#row_'+row_id+'').remove();
+   total -= removedPrice;
+   total = Math.round(total*100)/100;
+    if(total <= 0)
+      total = 0;
+    $('#total').val(total);
+   $('#total2').val(total);
+
   }
   else
   {
@@ -347,40 +359,44 @@ $(document).ready(function(){
   }
  });
 
- $('#action_alert').dialog({
-  autoOpen:false
- });
-
- $('#user_form').on('submit', function(event){
-  event.preventDefault();
-  var count_data = 0;
-  $('.product').each(function(){
-   count_data = count_data + 1;
-  });
-  if(count_data > 0)
-  {
-   var form_data = $(this).serialize();
-   $.ajax({
-    url:"insert.php",
-    method:"POST",
-    data:form_data,
-    success:function(data)
-    {
-     $('#user_data').find("tr:gt(0)").remove();
-     $('#action_alert').html('<p>Data Inserted Successfully</p>');
-     $('#action_alert').dialog('open');
-    }
-   })
-  }
-  else
-  {
-   $('#action_alert').html('<p>Please Add atleast one data</p>');
-   $('#action_alert').dialog('open');
-  }
- });
- 
 });  
-</script>   
+</script>  
+
+<script>
+    function change(){
+     $("#customerlist").empty();
+     
+ var customers = JSON.parse('{!! json_encode($customers) !!}');
+ console.log(customers); 
+
+ var guests = JSON.parse('{!! json_encode($guests) !!}');
+ console.log(guests); 
+     var customerSelect = document.getElementById("customerlist");
+ var presList = $('#presentationlist').val();
+
+var host = document.createElement("option");
+var presentations2 = {!! json_encode($presentations2) !!};
+console.log(presentations2); 
+
+host.text = presentations2[presList-1].host;
+
+host.value = presentations2[presList-1].host;
+customerSelect.add(host);
+
+ for(let i=0;i<guests.length;i++){
+  var option = document.createElement("option");
+     if(guests[i].idPrez==presList){
+       console.log(guests[i].guestId);
+       console.log(guests[i].idPrez);
+       console.log(presList);
+       option.text = guests[i].name;
+       option.value = guests[i].name;
+      customerSelect.add(option);
+     }
+   }
+
+   }
+  </script>
 
   </div>
 
