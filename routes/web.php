@@ -3,6 +3,7 @@
 use App\Customers;
 use App\CustomerOrder;
 use App\Product;
+use App\Threshold;
 use App\Guest;
 use App\Flyer;
 use App\Catalog;
@@ -89,8 +90,9 @@ Route::get('/presentations', function () {
 Route::get('/receipt', function () {
     $orders = CustomerOrder::where('presentatorId', Auth::user()->id)->latest()->get()->toArray();
     $customers = Customers::All()->toArray();
+    $thresholds = Threshold::All()->toArray();
 
-    return view('receipt', compact('orders', 'customers'));
+    return view('receipt', compact('orders', 'customers', 'thresholds'));
 });
 
 Route::get('/reviewIssueSlips', function () {
@@ -130,6 +132,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('newCustomer','CustomersController@store');
 
 Route::post('newOrder', 'CustomerOrderController@store');
+
+Route::post('receipt', 'ThresholdController@store');
 
 Route::post('presentations','PresentationController@store');
 

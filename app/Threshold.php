@@ -11,5 +11,5 @@ class Threshold extends Model
         'moneyThreshold',
     ];
 
-    protected $table='threshold';
+    protected $table='thresholds';
 }

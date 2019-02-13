@@ -43,7 +43,92 @@
         <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        
+
+      <h3>Monthly cash treshold</h3><br>
+
+      <form name="threshold" novalidate="novalidate" action="/receipt" method="post">
+        {{csrf_field()}}
+        <div class="control-group row">
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>January</label>
+            <input class="form-control" name="m1" id="m1" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>February</label>
+            <input class="form-control" name="m2" id="m2" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>March</label>
+            <input class="form-control" name="m3" id="m3" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>April</label>
+            <input class="form-control" name="m4" id="m4" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <div class="control-group row">
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>May</label>
+            <input class="form-control" name="m5" id="m5" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>June</label>
+            <input class="form-control" name="m6" id="m6" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>July</label>
+            <input class="form-control" name="m7" id="m7" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>August</label>
+            <input class="form-control" name="m8" id="m8" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <div class="control-group row">
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>September</label>
+            <input class="form-control" name="m9" id="m9" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>October</label>
+            <input class="form-control" name="m10" id="m10" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>November</label>
+            <input class="form-control" name="m11" id="m11" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+          <div class="form-group floating-label-form-group controls mb-0 pb-2 col-md-3 floating-label-form-group-with-value">
+            <label>December</label>
+            <input class="form-control" name="m12" id="m12" type="number" required="required" data-validation-required-message="Please enter date.">
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+         <br>
+          <button type="submit" class="btn btn-primary btn-xl" id="thresholdButton">Save</button>
+        </div>
+
+      </form>
+        <br>
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h3>Receipt list</h3><br>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-lg-8 mx-auto">
           <table class="table">
@@ -125,10 +210,21 @@
         });
 
         function newReceipt(orderId){
-          window.print();
+          window.open("");
+
         }
         </script>
-    
+
+        <script>
+          $(document).ready(function(){ 
+           var thresholds = JSON.parse('{!! json_encode($thresholds) !!}');
+            console.log(thresholds);
+            for(let i=1;i<=thresholds.length;i++){
+                $('#m'+i).val(thresholds[i-1].moneyThreshold);
+            }
+          });
+        </script>
+
 
   </div>
 

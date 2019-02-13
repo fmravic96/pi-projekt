@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Threshold;
+use DB;
 use Illuminate\Http\Request;
 
 class ThresholdController extends Controller
@@ -36,7 +37,12 @@ class ThresholdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+        for($i = 1;$i<=12;$i++){
+            DB::table('thresholds')->where('month', $i)->update(['moneyThreshold' => $request->get('m'.$i)]);
+        }
+
+        return 'radi yyyeeeeeyyy';
     }
 
     /**
