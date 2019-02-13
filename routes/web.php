@@ -1,6 +1,7 @@
 <?php
 
 use App\Customers;
+use App\CustomerOrder;
 use App\Product;
 use App\Guest;
 use App\Flyer;
@@ -86,7 +87,10 @@ Route::get('/presentations', function () {
 });
 
 Route::get('/receipt', function () {
-    return view('receipt');
+    $orders = CustomerOrder::where('presentatorId', Auth::user()->id)->latest()->get()->toArray();
+    $customers = Customers::All()->toArray();
+
+    return view('receipt', compact('orders', 'customers'));
 });
 
 Route::get('/reviewIssueSlips', function () {

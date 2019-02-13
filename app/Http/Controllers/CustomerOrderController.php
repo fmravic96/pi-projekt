@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\CustomerOrder;
 use App\ProductInOrder;
+use App\Product;
+use DB;
 use Illuminate\Http\Request;
 
 class CustomerOrderController extends Controller
@@ -43,7 +46,8 @@ class CustomerOrderController extends Controller
 
         $customerOrder = new CustomerOrder([
             'presentationId' => $request->get('presentationlist'),
-            'customerName' => $request->get('customerlist'),
+            'presentatorId' => Auth::user()->id,
+            'customerId' => $request->get('customerlist'),
             'total' => $request->get('total2'),
         ]);
 
@@ -58,6 +62,12 @@ class CustomerOrderController extends Controller
                 'price' => $price[$i],
             ]);
             $productInOrder->save();
+        }
+        
+        for($i = 0;$i<count($product);$i++){
+            $quantityDB = Product::where('name', $product[$i])->value('quantity');
+            $quantityDB-=$quantity[$i];
+            DB::table('products')->where('name', $product[$i])->update(['quantity' => $quantityDB]);
         }
 
         return $customerOrder;

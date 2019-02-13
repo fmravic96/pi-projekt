@@ -8,7 +8,8 @@ class CustomerOrder extends Model
 {
     protected $fillable = [
         'presentationId',
-        'customerName',
+        'presentatorId',
+        'customerId',
         'total',
     ];
 

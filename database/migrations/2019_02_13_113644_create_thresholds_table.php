@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerOrdersTable extends Migration
+class CreateThresholdsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateCustomerOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('presentationId');
-            $table->integer('presentatorId');
-            $table->integer('customerId');
-            $table->double('total');
+        Schema::create('thresholds', function (Blueprint $table) {
+            $table->increments('month');
+            $table->integer('moneyThreshold');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateCustomerOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_orders');
+        Schema::dropIfExists('thresholds');
     }
 }

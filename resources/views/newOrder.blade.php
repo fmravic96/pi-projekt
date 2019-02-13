@@ -26,7 +26,7 @@
     <link href="{{URL::asset('css/simple-sidebar.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
 
   </head>
   <body id="wrapper">
@@ -103,7 +103,7 @@
   <div id="user_dialog" title="Add Data">
    <div class="form-group">
     <label>Select product</label>
-    <select name="product" id="product" class="form-control selectpicker" data-live-search="true" data-size="5"> 
+    <select name="product" id="product" class="form-control selectpicker" data-live-search="true" > 
                       @foreach($products as $product)
                         <option value="{{$product['name']}}">{{$product['name']}}</option>
                       @endforeach
@@ -187,8 +187,8 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-  
+        
+ 
     <!-- Custom scripts for this template -->
     <script src="{{URL::asset('js/freelancer.js')}}"></script>
 
@@ -201,7 +201,7 @@
         </script>
  <script>  
 $(document).ready(function(){ 
- 
+
   var total = 0;
  var count = 0;
 $('#total').val(total);
@@ -214,7 +214,7 @@ $('#total2').val(total);
 
  var customers = JSON.parse('{!! json_encode($customers) !!}');
  console.log(customers); 
-
+ 
  var guests = JSON.parse('{!! json_encode($guests) !!}');
  console.log(guests); 
 
@@ -227,7 +227,7 @@ console.log(presentations2);
 
 host.text = presentations2[presList-1].host;
 
-host.value = presentations2[presList-1].host;
+host.value = presentations2[presList-1].hostId;
 customerSelect.add(host);
 
  for(let i=0;i<guests.length;i++){
@@ -237,11 +237,10 @@ customerSelect.add(host);
        console.log(guests[i].idPrez);
        console.log(presList);
        option.text = guests[i].name;
-       option.value = guests[i].name;
+       option.value = guests[i].guestId;
       customerSelect.add(option);
      }
    }
-
  var products = JSON.parse('{!! json_encode($products) !!}');
  console.log(products);
 
@@ -282,12 +281,22 @@ customerSelect.add(host);
    product = $('#product').val();
    
   } 
+  var elem=document.getElementById('product').selectedIndex + 1;
+  console.log(elem);
+  console.log(products[elem].quantity);
+
   if($('#quantity').val() == '')
   {
    error_quantity = 'Quantity is required';
    $('#error_quantity').text(error_quantity);
    $('#quantity').css('border-color', '#cc0000');
    quantity = '';
+  }
+  else if($('#quantity').val() > products[elem].quantity) {
+    error_quantity = 'Not enough quantity';
+    $('#error_quantity').text(error_quantity);
+    $('#quantity').css('border-color', '#cc0000');
+    quantity = '';
   }
   else
   {
@@ -299,6 +308,7 @@ customerSelect.add(host);
   for(let i=0;i<products.length;i++){
      if(products[i].name==product){
        price=quantity*products[i].price;
+       price=Math.round(price*100)/100;
      }
    }
 
@@ -380,7 +390,7 @@ console.log(presentations2);
 
 host.text = presentations2[presList-1].host;
 
-host.value = presentations2[presList-1].host;
+host.value = presentations2[presList-1].hostId;
 customerSelect.add(host);
 
  for(let i=0;i<guests.length;i++){
@@ -390,7 +400,7 @@ customerSelect.add(host);
        console.log(guests[i].idPrez);
        console.log(presList);
        option.text = guests[i].name;
-       option.value = guests[i].name;
+       option.value = guests[i].guestId;
       customerSelect.add(option);
      }
    }

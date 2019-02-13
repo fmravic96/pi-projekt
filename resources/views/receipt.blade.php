@@ -46,56 +46,34 @@
         
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Name</label>
-                  <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter customer name.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>OIB</label>
-                  <input class="form-control" id="oib" type="number" placeholder="Personal Identification Number" required="required" data-validation-required-message="Please enter customer PIN.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Email Address</label>
-                  <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter customer email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Phone Number</label>
-                  <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter customer phone number.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div><br>
-              <div class="control-group">
-                  <p class="h4 text-muted">Gender</p><br>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="male" name="gender" checked>
-                  <label class="custom-control-label" for="male">Male</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="female" name="gender">
-                  <label class="custom-control-label" for="female">Female</label>
-                </div>
-              </div><br>
-              <br>
-              
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
-              </div>
-            </form>
-          </div>
+          <table class="table">
+          <thead>
+          <tr>
+              <th>Receipt ID</th>
+              <th>Presentation ID</th>
+              <th>Customer name</th>
+              <th>Date</th>
+              <th>Base price</th>
+              <th>Shipping address</th>
+              <th>City and postal code</th>
+              <th></th>
+            </tr> 
+          </thead>
+          <tbody>
+        @foreach($orders as $order)
+            <tr>
+              <td>{{$order['id']}}</td>
+              <td>{{$order['presentationId']}}</td>
+              <td>{{$customers[$order['customerId']-1]['name']}}</td>
+              <td>{{$order['created_at']}}</td>
+              <td>{{$order['total']}}</td>
+              <td>{{$customers[$order['customerId']-1]['homeAdress']}}</td>
+              <td>{{$customers[$order['customerId']-1]['city']}}</td>
+              <td><button onclick="newReceipt('{{$order['id']}}')" type="button" name="receiptBtn" class="btn btn-primary btn-xs" id="receipt">Receipt</button></td>
+            </tr>
+          @endforeach
+          </tbody>
+          </table></div>
         </div>
       </div>
     </section>
@@ -145,6 +123,10 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        function newReceipt(orderId){
+          window.print();
+        }
         </script>
     
 
