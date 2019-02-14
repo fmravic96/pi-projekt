@@ -3,6 +3,7 @@
 use App\Customers;
 use App\CustomerOrder;
 use App\Product;
+use App\ProductInOrder;
 use App\Threshold;
 use App\Guest;
 use App\Flyer;
@@ -46,6 +47,7 @@ Route::get('/home', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -142,3 +144,5 @@ Route::post('file','FlyerController@storeFile');
 
 Route::get('file2','CatalogController@showUploadForm')->name('upload.file2');
 Route::post('file2','CatalogController@storeFile');
+
+Route::get('receipt/print{id}','ReceiptController@getDisplay');

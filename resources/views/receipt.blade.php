@@ -154,7 +154,8 @@
               <td>{{$order['total']}}</td>
               <td>{{$customers[$order['customerId']-1]['homeAdress']}}</td>
               <td>{{$customers[$order['customerId']-1]['city']}}</td>
-              <td><button onclick="newReceipt('{{$order['id']}}')" type="button" name="receiptBtn" class="btn btn-primary btn-xs" id="receipt">Receipt</button></td>
+              <td><a href="{{url('receipt/print'.$order['id'])}}">Receipt</a></td>
+              <!-- button onclick="" type="button" name="receiptBtn" class="btn btn-primary btn-xs" id="receipt">Receipt</button>-->
             </tr>
           @endforeach
           </tbody>
@@ -210,8 +211,7 @@
         });
 
         function newReceipt(orderId){
-          window.open("");
-
+          
         }
         </script>
 
