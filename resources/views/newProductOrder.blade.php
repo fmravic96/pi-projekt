@@ -44,38 +44,66 @@
         
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+          <h3>Weekly quantity of sold products</h2><br>
+          <table class="table">
+          <thead>
+          <tr>
+              <th>Order ID</th>
+              <th>Product name</th>
+              <th>Quantity</th>
+              <th>Date</th>
+            </tr> 
+          </thead>
+          <tbody>
+        @foreach($productOrder as $po)
+            <tr>
+              <th>{{$po['orderId']}}</th>
+              <th>{{$po['productName']}}</th>
+              <th>{{$po['quantity']}}</th>
+              <th>{{$po['created_at']}}</th>
+            </tr>
+          @endforeach
+          </tbody>
+          </table><br>
 
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                      <label>Date</label>
-                      <input class="form-control" id="date" type="date" placeholder="Date" required="required" data-validation-required-message="Please enter date.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-             
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Product</label>
-                  <input class="form-control" id="product" type="text" placeholder="Product" required="required" data-validation-required-message="Please select product .">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Quantity</label>
-                  <input class="form-control" id="quantity" type="number" placeholder="Quantity" required="required" data-validation-required-message="Please enter quantity.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-
-
-              <div class="form-group">
-                <br>
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Send</button>
+          <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h3>Total quantity of sold products</h2><br>
+          <form name="orderQuantity" id="orderQuantity" novalidate="novalidate" action="/newProductOrder" method="post">
+          {{csrf_field()}}
+          <table class="table">
+          <thead>
+          <tr>
+              <th>Product name</th>
+              <th>Quantity</th>
+            </tr> 
+          </thead>
+          <tbody>
+          
+        @foreach($product as $p)
+        <?php $totalQuantity=0;?>
+          @foreach($productOrder as $po)
+            @if($p['name'] == $po['productName'])
+              <?php $totalQuantity+=$po['quantity'];?>
+            @endif
+          @endforeach
+          @if($totalQuantity!=0)
+          <tr>
+              <th>{{$p['name']}}</th>
+              <th>{{$totalQuantity}}</th>
+            </tr>
+            <input type="hidden" name="productId[]" value="{{$p['id']}}">
+            <input type="hidden" name="quantity[]" value="{{$totalQuantity}}">
+            @endif
+          @endforeach
+          </tbody>
+          </table>   
+              <br>
+              @if($lastOrderDate==null)
+                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Order</button>
+              @else
+                <h6 class="text-danger">* Order has already been placed for this week!</h6>
+              @endif
               </div>
             </form>
           </div>

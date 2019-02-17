@@ -82,8 +82,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              
-              <img class="img-fluid" src="img/catalog/cabin.png" alt="">
+              <?php $path='storage/upload/catalogs/'.$catalog[0]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">
             </a>
           </div>
           <div class="col-md-6 col-lg-4">
@@ -93,7 +93,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/catalog/cake.png" alt="">
+              <?php $path='storage/upload/catalogs/'.$catalog[1]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">
             </a>
           </div>
           <div class="col-md-6 col-lg-4">
@@ -103,7 +104,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/catalog/circus.png" alt="">
+              <?php $path='storage/upload/catalogs/'.$catalog[2]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">
             </a>
           </div>
           <div class="col-md-6 col-lg-4">
@@ -113,8 +115,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/catalog/game.png" alt="">
-            </a>
+              <?php $path='storage/upload/catalogs/'.$catalog[3]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">            </a>
           </div>
           <div class="col-md-6 col-lg-4">
             <a class="catalog-item d-block mx-auto" href="#catalog-modal-5">
@@ -123,8 +125,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/catalog/safe.png" alt="">
-            </a>
+              <?php $path='storage/upload/catalogs/'.$catalog[4]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">            </a>
           </div>
           <div class="col-md-6 col-lg-4">
             <a class="catalog-item d-block mx-auto" href="#catalog-modal-6">
@@ -133,8 +135,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <!--<img class="img-fluid" src="img/catalog/submarine.png" alt="">-->
-            </a>
+              <?php $path='storage/upload/catalogs/'.$catalog[5]['name']; ?>
+              <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">            </a>
           </div>
         </div>
       </div>
@@ -189,6 +191,120 @@
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
+
+      <!-- catalog Modal 1 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-1">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="text-secondary text-uppercase mb-0">Catalog 1</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[0]['name']; ?>
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog Modal 2 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-2">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h2 class="text-secondary text-uppercase mb-0">Catalog 2</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[1]['name']; ?>
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog Modal 3 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-3">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h2 class="text-secondary text-uppercase mb-0">Catalog 3</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[2]['name']; ?>
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog Modal 4 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-4">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h2 class="text-secondary text-uppercase mb-0">Catalog 4</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[3]['name']; ?>
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog Modal 5 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-5">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h2 class="text-secondary text-uppercase mb-0">Catalog 5</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[4]['name']; ?>
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog Modal 6 -->
+  <div class="catalog-modal mfp-hide" id="catalog-modal-6">
+    <div class="catalog-modal-dialog bg-white">
+      <a class="close-button d-none d-md-block catalog-modal-dismiss" href="#">
+        <i class="fa fa-3x fa-times"></i>
+      </a>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <h2 class="text-secondary text-uppercase mb-0">Catalog 6</h2>
+            <hr class="star-dark mb-5">
+            <?php $path='storage/upload/catalogs/'.$catalog[5]['name']; ?>
+            <img class="bigImage" src="{{asset($path)}}" alt="Opis">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
 use App\LastOrderDate;
 use Illuminate\Http\Request;
-use DB;
 
-class ProductController extends Controller
+class LastOrderDateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('productList')->with($products);
+        //
     }
 
     /**
@@ -38,25 +35,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $pid=$request->get('productId');
-        $quantity=$request->get('quantity');
-        for($i = 0;$i<count($pid);$i++){
-            $quantityDB = Product::where('id', $pid[$i])->value('quantity');
-            $quantityDB+=$quantity[$i];
-            DB::table('products')->where('id', $pid[$i])->update(['quantity' => $quantityDB]);
-        }
-        $a=new LastOrderDate;
-        $a->save();
-        return $quantity;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\LastOrderDate  $lastOrderDate
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(LastOrderDate $lastOrderDate)
     {
         //
     }
@@ -64,10 +52,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\LastOrderDate  $lastOrderDate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(LastOrderDate $lastOrderDate)
     {
         //
     }
@@ -76,10 +64,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\LastOrderDate  $lastOrderDate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, LastOrderDate $lastOrderDate)
     {
         //
     }
@@ -87,10 +75,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\LastOrderDate  $lastOrderDate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(LastOrderDate $lastOrderDate)
     {
         //
     }

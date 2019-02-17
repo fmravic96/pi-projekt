@@ -9,6 +9,8 @@ use App\Guest;
 use App\Flyer;
 use App\Catalog;
 use App\Presentation;
+use App\LastOrderDate;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ use App\Presentation;
 Route::get('/', function () {
 
     $flyer = Flyer::latest()->first();
-    $catalog = Catalog::latest()->first()->toArray();
+    $catalog = Catalog::latest()->get()->toArray();
   
     if (Auth::check() && Auth::user()->role == 'distributer') {
         return view('distributer', compact('flyer','catalog'));
@@ -41,7 +43,8 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     $flyer = Flyer::latest()->first();
-    return view('home', compact('flyer'));
+    $catalog = Catalog::latest()->get()->toArray();
+    return view('home', compact('flyer','catalog'));
 });
 
 Route::get('/login', function () {
@@ -102,13 +105,17 @@ Route::get('/reviewIssueSlips', function () {
 });
 
 Route::get('/newProductOrder', function () {
-    return view('newProductOrder');
+    $date=\Carbon\Carbon::today()->subDays(7);
+    $productOrder=ProductInOrder::where('created_at','>=', $date)->get()->toArray();
+    $product=Product::All()->toArray();
+    $lastOrderDate=LastOrderDate::where('created_at','>=', $date)->latest()->first();
+    return view('newProductOrder',compact('productOrder','product','lastOrderDate'));
 });
 
 Route::get('/presenter', function () {
     $flyer = Flyer::latest()->first();
-
-    return view('presenter', compact('flyer'));
+    $catalog = Catalog::latest()->get()->toArray();
+    return view('presenter', compact('flyer','catalog'));
 });
 
 
@@ -120,7 +127,8 @@ Route::get('/issueSlips', function () {
 
 Route::get('/distributer', function () {
     $flyer = Flyer::latest()->first();
-    return view('distributer', compact('flyer'));
+    $catalog = Catalog::latest()->get()->toArray();
+    return view('distributer', compact('flyer','catalog'));
 });
 
 Auth::routes();
@@ -138,6 +146,8 @@ Route::post('newOrder', 'CustomerOrderController@store');
 Route::post('receipt', 'ThresholdController@store');
 
 Route::post('presentations','PresentationController@store');
+
+Route::post('newProductOrder','ProductController@store');
 
 Route::get('file','FlyerController@showUploadForm')->name('upload.file');
 Route::post('file','FlyerController@storeFile');
