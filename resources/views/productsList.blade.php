@@ -45,7 +45,7 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Product Name</label>
-                  <input class="form-control " id="productName" name="productName" type="text" placeholder="Product Name" required="required" data-validation-required-message="Please enter product name.">
+                  <input class="form-control " id="productName" name="productName" onkeyup="stoppedTyping()" type="text" placeholder="Product Name" required="required" data-validation-required-message="Please enter product name.">
                   <p class="help-block text-danger">
                   </p>
                 </div>
@@ -53,7 +53,7 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Price</label>
-                  <input class="form-control" id="price" name="price" type="number" placeholder="Price" required="required" data-validation-required-message="Please enter price.">
+                  <input class="form-control" id="price" name="price" type="number" onkeyup="stoppedTyping()" placeholder="Price" required="required" data-validation-required-message="Please enter price.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -61,14 +61,14 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Quantity</label>
-                  <input class="form-control" id="quantity" name="quantity" type="number" placeholder="Quantity" required="required" data-validation-required-message="Please enter quantity.">
+                  <input class="form-control" id="quantity" name="quantity" type="number" onkeyup="stoppedTyping()" placeholder="Quantity" required="required" data-validation-required-message="Please enter quantity.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <br>
               
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl mb-5" id="saveMessageButton">Save</button>
+                <button style="visibility:hidden;" type="submit" class="btn btn-primary btn-xl mb-5" id="sendMessageButton">Save</button>
               </div>
             </form>
 
@@ -133,12 +133,28 @@
 
     <!-- Custom scripts for this template -->
     <script src="{{URL::asset('js/freelancer.js')}}"></script>
+    <script src="{{URL::asset('js/contact_me.js')}}"></script>
+    <script src="{{URL::asset('js/jqBootstrapValidation.js')}}"></script>
+
+
 
     <script>
+
+    
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+
+        function stoppedTyping(){
+        if($("#productName").val()!=="" && $("#price").val()!=="" && $("#quantity").val()!=="") {
+          document.getElementById('sendMessageButton').style.visibility='visible';
+        }
+        else {
+          document.getElementById('sendMessageButton').style.visibility='hidden';
+        }
+      } 
         </script>
     
 

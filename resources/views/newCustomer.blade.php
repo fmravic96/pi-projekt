@@ -54,14 +54,14 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Name</label>
-                  <input class="form-control" id="name" name="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter customer name.">
+                  <input class="form-control" id="name" name="name" onkeyup="stoppedTyping()" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter customer name.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Adress</label>
-                  <input class="form-control" id="adress" name="homeAdress" type="text" placeholder="Home Adress" required="required" data-validation-required-message="Please enter customer home adress.">
+                  <input class="form-control" id="adress" name="homeAdress" onkeyup="stoppedTyping()" type="text" placeholder="Home Adress" required="required" data-validation-required-message="Please enter customer home adress.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -69,7 +69,7 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>City</label>
-                  <input class="form-control" id="city" name="city" type="text" placeholder="City and Postal Code" required="required" data-validation-required-message="Please enter customer city and postal code.">
+                  <input class="form-control" id="city" name="city" onkeyup="stoppedTyping()" type="text" placeholder="City and Postal Code" required="required" data-validation-required-message="Please enter customer city and postal code.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -78,14 +78,14 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Email Address</label>
-                  <input class="form-control" id="email" name="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter customer email address.">
+                  <input class="form-control" id="email" name="email" onkeyup="stoppedTyping()" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter customer email address.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Phone Number</label>
-                  <input class="form-control" id="phone" name="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter customer phone number.">
+                  <input class="form-control" id="phone" name="phone" onkeyup="stoppedTyping()" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter customer phone number.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div><br>
@@ -103,7 +103,7 @@
               <br>
               
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
+                <button style="visibility:hidden;" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Save</button>
               </div>
             </form>
           </div>
@@ -156,6 +156,15 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        function stoppedTyping(){
+        if($("#name").val()!=="" && $("#adress").val()!=="" && $("#city").val()!=="" && $("#email").val()!=="" && $("#phone").val()!=="") {
+          document.getElementById('sendMessageButton').style.visibility='visible';
+        }
+        else {
+          document.getElementById('sendMessageButton').style.visibility='hidden';
+        }
+      } 
         </script>
     
 

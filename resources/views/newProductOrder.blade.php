@@ -87,7 +87,6 @@
             @if($p['name'] == $po['productName'])
               <?php $totalQuantity+=$po['quantity'];?>
               <input type="hidden" name="orderId[]" value="{{$po['orderId']}}">
-
             @endif
           @endforeach
           @if($totalQuantity!=0)

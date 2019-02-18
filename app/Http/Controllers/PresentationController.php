@@ -50,17 +50,27 @@ class PresentationController extends Controller
             'host' => $hostName,
         ]);
         $presentations->save();
-        for($i = 0;$i<count($guests);$i++){
-            $guestName = Customers::where('id', $guests[$i])->value('name');
-            $guest = new Guest([
-                'idPrez' => $presentations['id'],
-                'guestId' => $guests[$i],
-                'name' => $guestName,
-            ]);
-            $guest->save();
+        if($guests==NULL){
+            return view('/presentations'); 
+        }
+        else{
+            for($i = 0;$i<count($guests);$i++){
+            
+                $guestName = Customers::where('id', $guests[$i])->value('name');
+                $guest = new Guest([
+                    'idPrez' => $presentations['id'],
+                    'guestId' => $guests[$i],
+                    'name' => $guestName,
+                ]);
+                
+                $guest->save();
+            }
         }
         
-        return $presentations;
+        $customers = Customers::All()->toArray();
+        $presentations = Presentation::All()->toArray();
+        $guests = Guest::All()->toArray();
+        return view('presentations', compact('customers','presentations', 'guests'));
     }
 
     /**

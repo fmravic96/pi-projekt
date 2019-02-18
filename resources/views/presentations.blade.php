@@ -56,13 +56,14 @@
               <div class="form-group row">
                 <label for="host" class="col-md-4 col-form-label text-md-right">Select a host</label>
                 <div class="col-md-6">
-                  <select name="host" class="form-control selectpicker" data-live-search="true" data-size="5"> 
+                  <select name="host" id="selectHost" class="form-control selectpicker" data-live-search="true" data-size="5"> 
                       @foreach($customers as $customer)
                         <option value="{{$customer['id']}}">{{$customer['name']}}</option>
                       @endforeach
                   </select> 
                 </div>
               </div>
+             
               <div class="form-group row">
                 <label for="guest" class="col-md-4 col-form-label text-md-right">Select guests</label>
                 <div class="col-md-6">
@@ -178,10 +179,12 @@
         });
 
         $(document).ready(function() {
-        $('.selectpicker').selectpicker();
+          $('.selectpicker').selectpicker();
         });
       
       </script>
+
+     
     
 
   </div>

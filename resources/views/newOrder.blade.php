@@ -129,7 +129,7 @@
                     <p class="h4 text-muted">Total</p>
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                       <label>Total</label>
-                      <input class="form-control" id="total2" name="total2" type="hidden" placeholder="Total" required="required">                      
+                      <input class="form-control" id="total2" name="total2" type="hidden" onchange="check()" placeholder="Total" required="required">                      
                       <output class="form-control" id="total" name="total" type="number" placeholder="Total" required="required">
                       <p class="help-block text-danger"></p>
                     </div>
@@ -138,7 +138,7 @@
 
               <div class="form-group">
                 <br>
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
+                <button style="visibility:hidden;" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Save</button>
               </div>
           </div>
         </div>
@@ -207,24 +207,21 @@ $(document).ready(function(){
 $('#total').val(total);
 $('#total2').val(total);
 
+
  $('#user_dialog').dialog({
   autoOpen:false,
   width:400
  });
 
  var customers = JSON.parse('{!! json_encode($customers) !!}');
- console.log(customers); 
- 
+
  var guests = JSON.parse('{!! json_encode($guests) !!}');
- console.log(guests); 
 
 var customerSelect = document.getElementById("customerlist");
  var presList = $('#presentationlist').val();
 
  var host = document.createElement("option");
 var presentations2 = {!! json_encode($presentations2) !!};
-console.log(presentations2); 
-
 host.text = presentations2[presList-1].host;
 
 host.value = presentations2[presList-1].hostId;
@@ -233,16 +230,12 @@ customerSelect.add(host);
  for(let i=0;i<guests.length;i++){
   var option = document.createElement("option");
      if(guests[i].idPrez==presList){
-       console.log(guests[i].guestId);
-       console.log(guests[i].idPrez);
-       console.log(presList);
        option.text = guests[i].name;
        option.value = guests[i].guestId;
       customerSelect.add(option);
      }
    }
  var products = JSON.parse('{!! json_encode($products) !!}');
- console.log(products);
 
  $('#add').click(function(){
   $('#user_dialog').dialog('option', 'title', 'Add Data');
@@ -282,8 +275,6 @@ customerSelect.add(host);
    
   } 
   var elem=document.getElementById('product').selectedIndex + 1;
-  console.log(elem);
-  console.log(products[elem].quantity);
 
   if($('#quantity').val() == '')
   {
@@ -316,6 +307,8 @@ customerSelect.add(host);
    total = Math.round(total*100)/100;
    $('#total').val(total);
    $('#total2').val(total);
+   document.getElementById('sendMessageButton').style.visibility='visible';
+
 
   if(error_product != '' || error_quantity != '' || error_price != '')
   {
@@ -353,7 +346,6 @@ customerSelect.add(host);
   if(confirm("Are you sure you want to remove this row data?"))
   {
    var removedPrice = $('#price'+row_id).val();
-   console.log(removedPrice);
    $('#row_'+row_id+'').remove();
    total -= removedPrice;
    total = Math.round(total*100)/100;
@@ -361,7 +353,6 @@ customerSelect.add(host);
       total = 0;
     $('#total').val(total);
    $('#total2').val(total);
-
   }
   else
   {
@@ -377,17 +368,13 @@ customerSelect.add(host);
      $("#customerlist").empty();
      
  var customers = JSON.parse('{!! json_encode($customers) !!}');
- console.log(customers); 
 
  var guests = JSON.parse('{!! json_encode($guests) !!}');
- console.log(guests); 
-     var customerSelect = document.getElementById("customerlist");
+ var customerSelect = document.getElementById("customerlist");
  var presList = $('#presentationlist').val();
 
 var host = document.createElement("option");
 var presentations2 = {!! json_encode($presentations2) !!};
-console.log(presentations2); 
-
 host.text = presentations2[presList-1].host;
 
 host.value = presentations2[presList-1].hostId;
@@ -396,9 +383,6 @@ customerSelect.add(host);
  for(let i=0;i<guests.length;i++){
   var option = document.createElement("option");
      if(guests[i].idPrez==presList){
-       console.log(guests[i].guestId);
-       console.log(guests[i].idPrez);
-       console.log(presList);
        option.text = guests[i].name;
        option.value = guests[i].guestId;
       customerSelect.add(option);

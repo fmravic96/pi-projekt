@@ -26,9 +26,8 @@ class FlyerController extends Controller
             $file->name = $filename;
             $file->size = $filesize;
             $file->save();
-            return 'spremljeno';
         }
-        return $request->all();
+        return view('/editFlyers');
     }
     public function index()
     {

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomerOrder;
+use App\Customers;
 use App\Threshold;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ThresholdController extends Controller
 {
@@ -42,7 +46,13 @@ class ThresholdController extends Controller
             DB::table('thresholds')->where('month', $i)->update(['moneyThreshold' => $request->get('m'.$i)]);
         }
 
-        return 'radi yyyeeeeeyyy';
+        
+    $orders = CustomerOrder::where('presentatorId', Auth::user()->id)->latest()->get()->toArray();
+    $customers = Customers::All()->toArray();
+    $thresholds = Threshold::All()->toArray();
+
+    return view('receipt', compact('orders', 'customers', 'thresholds'));
+    
     }
 
     /**

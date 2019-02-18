@@ -8,6 +8,7 @@ use App\LastOrderDate;
 use App\IssueSlips;
 use Illuminate\Http\Request;
 use App\CustomerOrder;
+use App\ProductInOrder;
 use DB;
 
 class ProductController extends Controller
@@ -61,7 +62,11 @@ class ProductController extends Controller
 
         $a=new LastOrderDate;
         $a->save();
-        return $quantity;
+        $date=\Carbon\Carbon::today()->subDays(7);
+      $productOrder=ProductInOrder::where('created_at','>=', $date)->get()->toArray();
+          $product=Product::All()->toArray();
+      $lastOrderDate=LastOrderDate::where('created_at','>=', $date)->latest()->first();
+      return view('newProductOrder',compact('productOrder','product','lastOrderDate'));
     }
 
     public function store2(Request $request){

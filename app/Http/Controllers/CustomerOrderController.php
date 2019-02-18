@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Presentation;
+use App\Guest;
 use App\CustomerOrder;
 use App\ProductInOrder;
 use App\Product;
+use App\Customers;
 use DB;
 use Illuminate\Http\Request;
 
@@ -70,7 +73,14 @@ class CustomerOrderController extends Controller
             DB::table('products')->where('name', $product[$i])->update(['quantity' => $quantityDB]);
         }
 
-        return $customerOrder;
+        $presentations = Presentation::where('idPrez', Auth::user()->id)->latest()->get()->toArray();
+        $presentations2 = Presentation::where('idPrez', Auth::user()->id)->get()->toArray();
+        $products = Product::All()->toArray();
+        $customers = Customers::All()->toArray();
+        $guests = Guest::All()->toArray();
+        
+    
+        return view('newOrder', compact('presentations', 'products', 'customers', 'guests','presentations2'));
     }
 
     /**

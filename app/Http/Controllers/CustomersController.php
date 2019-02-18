@@ -46,7 +46,7 @@ class CustomersController extends Controller
             'host' => 0,
         ]);
         $customers->save();
-        return 'Sucessfully added.';
+        return view('/newCustomer');
     }
 
     /**

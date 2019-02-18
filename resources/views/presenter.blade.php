@@ -114,31 +114,29 @@
               <img class="img-fluid mb-5 d-block mx-auto" src="{{asset($path)}}" alt="Opis">            </a>
           </div>
         </div>
+        <br><h4>Monthly flyer discounts</h4><br>
+        <table class="table">
+          <thead>
+          <tr>
+              <th>Month</th>
+              <th>Discount</th>
+              <th>Product</th>
+            </tr> 
+          </thead>
+          <tbody>
+        @foreach($flyerDiscount as $fd)
+            <tr>
+              <th>{{$fd['month']}}</th>
+              <th>{{$fd['discountAmount']*100}}%</th>
+              <th>{{$fd['product']}}</th>
+            </tr>
+          @endforeach
+          </tbody>
+          </table>
       </div>
     </section>
 
-    <!-- About Section -->
-    <section class="bg-primary text-white mb-0" id="about">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-white">About</h2>
-        <hr style="height:7px;background-color: white">
-        <div class="row">
-          <div class="col-lg-4 ml-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique magni a aspernatur dolorem repudiandae perferendis. Quibusdam, iusto aut? Cupiditate, dolorum!</p>
-          </div>
-          <div class="col-lg-4 mr-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus cupiditate sit repellendus voluptates doloribus porro!</p>
-          </div>
-        </div>
-        <div class="text-center mt-4">
-          <a class="btn btn-xl btn-outline-light" href="#">
-            <!--<i class="fas fa-download mr-2"></i>-->
-            Start
-          </a>
-        </div>
-      </div>
-    </section>
-    <!-- Footer -->
+       <!-- Footer -->
     <footer class="footer text-center d-flex">
       <div class="container justify-content-center w-30" >
         <div class="row">
@@ -151,45 +149,7 @@
                 <br>Sveučilište u Rijeci
                 <br>Odjel za informatiku</p>
           </div>
-          <!--
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Around the Web</h4>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fab fa-fw fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fab fa-fw fa-google-plus-g"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fab fa-fw fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fab fa-fw fa-linkedin-in"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fab fa-fw fa-dribbble"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">About Freelancer</h4>
-            <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-              <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-          </div>
-        </div>
-      </div>
-      -->
+          
     </footer>
 
     <div class="copyright py-4 text-center text-white">

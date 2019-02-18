@@ -72,7 +72,7 @@
     <!-- Katalozi Grid Section -->
     <section class="catalog" id="catalog">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">catalog</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Catalog</h2>
         <hr class="star-dark mb-5">
         <div class="row">
           <div class="col-md-6 col-lg-4">
@@ -141,28 +141,6 @@
         </div>
       </div>
     </section>
-
-    <!-- About Section -->
-    <section class="bg-primary text-white mb-0" id="about">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-white">About</h2>
-        <hr style="height:7px;background-color: white">
-        <div class="row">
-          <div class="col-lg-4 ml-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique magni a aspernatur dolorem repudiandae perferendis. Quibusdam, iusto aut? Cupiditate, dolorum!</p>
-          </div>
-          <div class="col-lg-4 mr-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus cupiditate sit repellendus voluptates doloribus porro!</p>
-          </div>
-        </div>
-        <div class="text-center mt-4">
-          <a class="btn btn-xl btn-outline-light" href="#">
-            <!--<i class="fas fa-download mr-2"></i>-->
-            Start
-          </a>
-        </div>
-      </div>
-    </section> 
 
     <!-- Footer -->
     <footer class="footer text-center d-flex">
@@ -299,7 +277,7 @@
           <h2 class="text-secondary text-uppercase mb-0">Catalog 6</h2>
             <hr class="star-dark mb-5">
             <?php $path='storage/upload/catalogs/'.$catalog[5]['name']; ?>
-            <img class="bigImage" src="{{asset($path)}}" alt="Opis">
+            <img class="img-fluid mb-5 d-block mx-auto bigImage" src="{{asset($path)}}" alt="Opis">
           </div>
         </div>
       </div>

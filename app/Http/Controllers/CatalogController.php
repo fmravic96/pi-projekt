@@ -21,10 +21,9 @@ class CatalogController extends Controller
             $file2[$i]->size = $filesize;
             $file2[$i]->save();
             
+         }
         }
-        return 'spremljeno';
-        }
-        return $request->all();
+        return view('/editFlyers');
     }
     public function index()
     {

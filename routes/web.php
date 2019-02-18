@@ -11,6 +11,7 @@ use App\Catalog;
 use App\Presentation;
 use App\LastOrderDate;
 use App\IssueSlips;
+use App\Discount;
 
 
 /*
@@ -40,12 +41,6 @@ Route::get('/', function () {
         return view('home', compact('flyer','catalog'));
     }
     
-});
-
-Route::get('/home', function () {
-    $flyer = Flyer::latest()->first();
-    $catalog = Catalog::latest()->get()->toArray();
-    return view('home', compact('flyer','catalog'));
 });
 
 Route::get('/login', function () {
@@ -112,7 +107,8 @@ Route::get('/newProductOrder', function () {
 Route::get('/presenter', function () {
     $flyer = Flyer::latest()->first();
     $catalog = Catalog::latest()->get()->toArray();
-    return view('presenter', compact('flyer','catalog'));
+    $flyerDiscount = Discount::All()->toArray();
+    return view('presenter', compact('flyer','catalog','flyerDiscount'));
 });
 
 

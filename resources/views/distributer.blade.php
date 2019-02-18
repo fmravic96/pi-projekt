@@ -113,29 +113,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
-    <section class="bg-primary text-white mb-0" id="about">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-white">About</h2>
-        <hr style="height:7px;background-color: white">
-        <div class="row">
-          <div class="col-lg-4 ml-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique magni a aspernatur dolorem repudiandae perferendis. Quibusdam, iusto aut? Cupiditate, dolorum!</p>
-          </div>
-          <div class="col-lg-4 mr-auto">
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus cupiditate sit repellendus voluptates doloribus porro!</p>
-          </div>
-        </div>
-        <div class="text-center mt-4">
-          <a class="btn btn-xl btn-outline-light" href="#">
-            <!--<i class="fas fa-download mr-2"></i>-->
-            Start
-          </a>
-        </div>
-      </div>
-    </section> 
-
-
     <!-- Footer -->
     <footer class="footer text-center d-flex">
       <div class="container justify-content-center w-30" >
