@@ -37,6 +37,40 @@
         <h2 class="font-weight-bold text-uppercase mb-0">Product list</h2>
       </div>
     </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+    <form name="newProduct" id="newProduct" novalidate="novalidate" action="/productList" method="post">
+            {{csrf_field()}}
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Product Name</label>
+                  <input class="form-control " id="productName" name="productName" type="text" placeholder="Product Name" required="required" data-validation-required-message="Please enter product name.">
+                  <p class="help-block text-danger">
+                  </p>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Price</label>
+                  <input class="form-control" id="price" name="price" type="number" placeholder="Price" required="required" data-validation-required-message="Please enter price.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Quantity</label>
+                  <input class="form-control" id="quantity" name="quantity" type="number" placeholder="Quantity" required="required" data-validation-required-message="Please enter quantity.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <br>
+              
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-xl mb-5" id="saveMessageButton">Save</button>
+              </div>
+            </form>
 
     <table class="table">
           <thead>
@@ -50,12 +84,15 @@
         @foreach($products as $product)
             <tr>
               <th>{{$product['name']}}</th>
-              <th>{{$product['price']}}</th>
+              <th>{{$product['price']-$product['price']*0.2}}</th>
               <th>{{$product['quantity']}}</th>
             </tr>
           @endforeach
           </tbody>
           </table>
+          </div>
+      </div>
+    </div>
         
     
     <!-- Footer -->

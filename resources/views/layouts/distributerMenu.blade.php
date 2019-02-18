@@ -12,9 +12,6 @@
                   <a href="productList">Product list</a>
               </li>
               <li>
-                  <a href="issueSlips">Issue slips</a>
-              </li>
-              <li>
                 <a href="logout">Logout</a>
             </li>
           </ul>

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Presenter - Review issue slips</title>
+    <title>Presenter - Receipt</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
@@ -36,66 +36,45 @@
         <!--
         <h1 class="text-uppercase mb-0">Start Bootstrap</h1>
         <hr class="star-light">-->
-        <h2 class="font-weight-bold text-uppercase mb-0">Review issues slips</h2>
+        <h2 class="font-weight-bold text-uppercase mb-0">Review issue slips</h2>
       </div>
     </header>
 
         <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        
+      </form>
+        <br>
+
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Name</label>
-                  <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter customer name.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>OIB</label>
-                  <input class="form-control" id="oib" type="number" placeholder="Personal Identification Number" required="required" data-validation-required-message="Please enter customer PIN.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Email Address</label>
-                  <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter customer email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Phone Number</label>
-                  <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter customer phone number.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div><br>
-              <div class="control-group">
-                  <p class="h4 text-muted">Gender</p><br>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="male" name="gender" checked>
-                  <label class="custom-control-label" for="male">Male</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="female" name="gender">
-                  <label class="custom-control-label" for="female">Female</label>
-                </div>
-              </div><br>
-              <br>
-              
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="saveMessageButton">Save</button>
-              </div>
-            </form>
+            <h3>Issue slips list</h3><br>
           </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+          <table class="table">
+          <thead>
+          <tr>
+              <th>Order ID</th>
+              <th>Distributer name</th>
+              <th>Date</th>
+              <th>Price</th>
+            </tr> 
+          </thead>
+          <tbody>
+        @for($i=0;$i<count($order);$i++)
+            <tr>
+              <td>{{$order[$i]['orderId']}}</td>
+              <td>{{$order[$i]['distributerName']}}</td>
+              <td>{{$order[$i]['created_at']}}</td>
+              <td>{{round($priceA[$i],2)}}</td>
+              <td><a href="{{url('reviewIssueSlips/print'.$order[$i]['orderId'])}}">Issue Slip</a></td>
+            </tr>
+          @endfor
+          </tbody>
+          </table></div>
         </div>
       </div>
     </section>
@@ -145,9 +124,7 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
-        </script>
-    
-
+    </script>
   </div>
 
   </body>

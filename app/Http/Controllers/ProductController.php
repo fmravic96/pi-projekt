@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\LastOrderDate;
+use App\IssueSlips;
 use Illuminate\Http\Request;
+use App\CustomerOrder;
 use DB;
 
 class ProductController extends Controller
@@ -40,14 +43,36 @@ class ProductController extends Controller
     {
         $pid=$request->get('productId');
         $quantity=$request->get('quantity');
+        $orderId=array_values(array_unique($request->get('orderId')));
         for($i = 0;$i<count($pid);$i++){
             $quantityDB = Product::where('id', $pid[$i])->value('quantity');
             $quantityDB+=$quantity[$i];
             DB::table('products')->where('id', $pid[$i])->update(['quantity' => $quantityDB]);
         }
+        foreach($orderId as $oi){
+            $prezId=CustomerOrder::where('id',$oi)->value('presentatorId');
+            $is = new IssueSlips([
+                'orderId' => $oi,
+                'idPrez' => $prezId,
+                'distributerName' => Auth::user()->name,
+            ]);
+            $is->save();
+        }
+
         $a=new LastOrderDate;
         $a->save();
         return $quantity;
+    }
+
+    public function store2(Request $request){
+        $product = new Product([
+            'name' => $request->get('productName'),
+            'price' => $request->get('price')+$request->get('price')*0.2,
+            'quantity' => $request->get('quantity'),
+        ]);
+        $product->save();
+
+        return 'asd';
     }
 
     /**

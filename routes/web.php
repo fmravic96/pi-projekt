@@ -10,6 +10,7 @@ use App\Flyer;
 use App\Catalog;
 use App\Presentation;
 use App\LastOrderDate;
+use App\IssueSlips;
 
 
 /*
@@ -100,10 +101,6 @@ Route::get('/receipt', function () {
     return view('receipt', compact('orders', 'customers', 'thresholds'));
 });
 
-Route::get('/reviewIssueSlips', function () {
-    return view('reviewIssueSlips');
-});
-
 Route::get('/newProductOrder', function () {
     $date=\Carbon\Carbon::today()->subDays(7);
     $productOrder=ProductInOrder::where('created_at','>=', $date)->get()->toArray();
@@ -121,8 +118,19 @@ Route::get('/presenter', function () {
 
 
 
-Route::get('/issueSlips', function () {
-    return view('issueSlips');
+Route::get('/reviewIssueSlips', function () {
+    $order = IssueSlips::where('idPrez', Auth::user()->id)->latest()->get()->toArray();
+    $priceA=[];
+    for($i=0;$i<count($order);$i++){
+        $price=0;
+        $prodPrice=ProductInOrder::where('orderId',$order[$i]['orderId'])->get()->toArray();
+        foreach($prodPrice as $pp){
+            $price+=$pp['price'];
+            $price-=$pp['price']*0.2;
+        }
+        array_push($priceA,$price);
+    }
+    return view('reviewIssueSlips',compact('order','price','priceA'));
 });
 
 Route::get('/distributer', function () {
@@ -156,3 +164,6 @@ Route::get('file2','CatalogController@showUploadForm')->name('upload.file2');
 Route::post('file2','CatalogController@storeFile');
 
 Route::get('receipt/print{id}','ReceiptController@getDisplay');
+Route::get('reviewIssueSlips/print{id}','IssueSlipsController@getDisplay');
+
+Route::post('productList','ProductController@store2');
